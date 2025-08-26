@@ -3,12 +3,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 body {
-    background-color: #0f1318;
-    color: #ffffff;
+    background-color: #141414;
+    color: #fff;
 }
 
 a {
@@ -17,47 +17,28 @@ a {
 }
 
 /* Header Styles */
-header {
-    background-color: #0f1318;
-    padding: 15px 50px;
-    position: sticky;
+.header {
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 100;
-    border-bottom: 1px solid #2a2e35;
+    transition: background-color 0.3s ease;
 }
 
-nav {
+.header.scrolled {
+    background-color: #141414;
+}
+
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 50px;
 }
 
 .logo img {
-    height: 40px;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    background-color: #2a2e35;
-    border-radius: 4px;
-    padding: 5px 10px;
-}
-
-.search-box input {
-    background: transparent;
-    border: none;
-    color: white;
-    padding: 8px;
-    width: 300px;
-    outline: none;
-}
-
-.search-box button {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
+    height: 60px;
 }
 
 .nav-links {
@@ -65,56 +46,200 @@ nav {
     gap: 20px;
 }
 
-.nav-links a {
-    font-weight: 500;
-    transition: color 0.3s;
+.nav-link {
+    font-size: 14px;
+    transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #1f80e0;
-}
-
-.user-actions {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.btn-login {
-    background-color: transparent;
-    border: 1px solid white;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: all 0.3s;
-}
-
-.btn-login:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.btn-subscribe {
-    background-color: #1f80e0;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.btn-subscribe:hover {
-    background-color: #1a6fc7;
+.nav-link:hover {
+    color: #e50914;
 }
 
 /* Hero Section */
 .hero {
-    background-image:url('images/ipl.webp');
+    height: 100vh;
+    background-image: url('../images/hero-background.jpg');
     background-size: cover;
     background-position: center;
-    height: 70vh;
+    position: relative;
     display: flex;
     align-items: center;
-    padding: 0 50px;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.cta {
+    margin-top: 20px;
+}
+
+.email-form {
+    display: flex;
+    max-width: 600px;
+    margin: 20px auto 0;
+}
+
+.email-form input {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+}
+
+.email-form button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-left: 5px;
+}
+
+.email-form button:hover {
+    background-color: #f40612;
+}
+
+/* Features Section */
+.features {
+    padding: 70px 45px;
+    border-bottom: 8px solid #222;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.feature-text {
+    flex: 1;
+    padding: 0 50px;
+}
+
+.feature-text h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-text p {
+    font-size: 1.5rem;
+}
+
+.feature-image {
+    flex: 1;
+    position: relative;
+}
+
+.feature-image img {
+    max-width: 100%;
+}
+
+/* Auth Pages */
+.auth-container {
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 60px 68px 40px;
+    margin-top: 100px;
+}
+
+.auth-form h1 {
+    margin-bottom: 28px;
+    font-size: 32px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    background: #333;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+.auth-links {
+    margin-top: 16px;
+    color: #737373;
+}
+
+.auth-links a {
+    color: #fff;
+}
+
+.error-message {
+    color: #e50914;
+    margin-bottom: 16px;
+}
+
+/* Browse Page */
+.browse-container {
+    padding-top: 80px;
+}
+
+.hero-banner {
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 100px;
+}
+
+.hero-content {
+    padding-left: 50px;
     max-width: 600px;
 }
 
@@ -123,66 +248,367 @@ nav {
     margin-bottom: 20px;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-/* Content Sections */
-.content-section {
-    padding: 30px 50px;
+.btn-play, .btn-info {
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.content-section h2 {
-    margin-bottom: 20px;
+.btn-play {
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.btn-info {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: white;
+    border: none;
+}
+
+.movie-rows {
+    padding: 0 50px;
+    margin-bottom: 50px;
+}
+
+.row-title {
     font-size: 1.5rem;
+    margin-bottom: 15px;
 }
 
-.content-grid {
+.movie-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.movie-item {
+    max-width:320px;
+    max-height: 450px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.movie-item img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.movie-item:hover .movie-overlay {
+    opacity: 1;
+}
+
+.movie-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-play-sm, .btn-add {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-play-sm {
+    background-color: white;
+    color: black;
+}
+
+.btn-add {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: white;
+}
+
+/* Footer */
+.footer {
+    background-color: #000;
+    color: #757575;
+    padding: 50px 0;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    color: #757575;
+}
+
+.footer-links {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-.content-card {
-    transition: transform 0.3s;
+.footer-links a {
+    font-size: 13px;
 }
 
-.content-card:hover {
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 13px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+    }
+    
+    .email-form {
+        flex-direction: column;
+    }
+    
+    .email-form button {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .feature {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .feature-text {
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+    
+    .auth-container {
+        padding: 40px 20px;
+        margin-top: 50px;
+    }
+    
+    .movie-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* Profiles Page Styles */
+.profiles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.profiles-header {
+    margin-bottom: 50px;
+}
+
+.profiles-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.profiles-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin-bottom: 50px;
+}
+
+.profile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-item:hover {
     transform: scale(1.05);
 }
 
-.content-card img {
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.profile-avatar img {
     width: 100%;
-    border-radius: 8px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.add-profile .profile-avatar {
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-profile .profile-avatar i {
+    font-size: 4rem;
+    color: #808080;
+}
+
+.profile-name {
+    font-size: 1.3rem;
+    color: #808080;
+}
+
+.profile-item:hover .profile-name {
+    color: #fff;
+}
+
+.profile-actions {
+    margin-top: 30px;
+}
+
+.btn-edit {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #808080;
+    border: 1px solid #808080;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Create/Edit Profile Styles */
+.create-profile-container,
+.update-profile-container,
+.edit-profiles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.create-profile-form,
+.update-profile-form {
+    max-width: 600px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 40px;
+    border-radius: 4px;
+}
+
+.edit-profiles-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.edit-profiles-header h1 {
+    font-size: 2.5rem;
     margin-bottom: 10px;
 }
 
-.content-card h3 {
-    font-size: 1rem;
-    font-weight: normal;
+.edit-profiles-header p {
+    font-size: 1.1rem;
+    color: #808080;
 }
 
-/* Auth Pages */
-.auth-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
+.avatar-selection {
+    margin-bottom: 30px;
 }
 
-.auth-container {
-    background-color: #1a1e23;
-    padding: 30px;
-    border-radius: 8px;
+.avatar-selection h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.avatars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.avatar-option {
+    cursor: pointer;
+    position: relative;
+}
+
+.avatar-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.avatar-option img {
     width: 100%;
-    max-width: 400px;
+    border-radius: 4px;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
 }
 
-.auth-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
+.avatar-option input:checked + img {
+    border-color: #e50914;
 }
 
 .form-group {
@@ -192,183 +618,107 @@ nav {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    background-color: #2a2e35;
-    border: none;
-    border-radius: 4px;
-    color: white;
-}
-
-.error-message {
-    color: #ff6b6b;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.auth-footer {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.auth-footer a {
-    color: #1f80e0;
-}
-
-/* Watch Page */
-.watch-page {
-    padding: 30px 50px;
-}
-
-.video-container {
-    margin-bottom: 40px;
-}
-
-.video-container video {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.video-info h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-.video-meta {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    color: #aaaaaa;
-}
-
-.video-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.btn-watch {
-    background-color: #1f80e0;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.btn-add {
-    background-color: #2a2e35;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Footer */
-footer {
-    background-color: #0f1318;
-    padding: 50px;
-    border-top: 1px solid #2a2e35;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-logo img {
-    height: 40px;
-    margin-bottom: 30px;
-}
-
-.footer-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.link-column h3 {
-    margin-bottom: 15px;
     font-size: 1.1rem;
 }
 
-.link-column a {
-    display: block;
-    margin-bottom: 10px;
-    color: #aaaaaa;
-    transition: color 0.3s;
+.form-control {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
 }
 
-.link-column a:hover {
-    color: white;
-}
-
-.social-icons {
+.form-check {
+    margin-bottom: 20px;
     display: flex;
-    gap: 15px;
+    align-items: center;
 }
 
-.social-icons a {
-    font-size: 1.5rem;
-    color: #aaaaaa;
-    transition: color 0.3s;
+.form-check input {
+    margin-right: 10px;
 }
 
-.social-icons a:hover {
-    color: white;
+.btn-done {
+    padding: 10px 30px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.copyright {
-    text-align: center;
-    color: #aaaaaa;
-    padding-top: 30px;
-    border-top: 1px solid #2a2e35;
+.btn-done:hover {
+    background-color: #f40612;
+}
+
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 15px;
+    color: #808080;
+    font-size: 1.1rem;
+}
+
+.btn-cancel:hover {
+    color: #fff;
+}
+
+/* Edit Profiles List */
+.edit-profiles-container .profiles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.edit-profiles-container .profile-item {
+    position: relative;
+}
+
+.edit-profiles-container .profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-delete {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #808080;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: #fff;
+    background-color: #e50914;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    header {
-        padding: 15px 20px;
+    .profiles-header h1 {
+        font-size: 2.5rem;
     }
     
-    .nav-links {
-        display: none;
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
     }
     
-    .search-box input {
-        width: 150px;
-    }
-    
-    .hero {
-        padding: 0 20px;
-        height: 50vh;
-    }
-    
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    
-    .content-section {
+    .create-profile-form,
+    .update-profile-form {
         padding: 20px;
     }
     
-    .watch-page {
-        padding: 20px;
-    }
-    
-    footer {
-        padding: 30px 20px;
+    .avatars-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

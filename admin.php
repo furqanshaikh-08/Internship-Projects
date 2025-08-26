@@ -1,25 +1,29 @@
 <?php
-include 'config.php';
+include 'connect.php';
 
 $uploadMessage = '';
+session_start();
+
+    if(isset($_SESSION['user_id'])) {
+        include 'header.php'; 
 
 if (isset($_FILES['Movie'])) {
     $target = 'uploads/' . basename($_FILES['Movie']['name']);
     $target2 = 'uploads/' . basename($_FILES['movie_image']['name']);
 
     if (move_uploaded_file($_FILES['Movie']['tmp_name'], $target) && move_uploaded_file($_FILES['movie_image']['tmp_name'], $target2)) {
-        $movie_title = mysqli_real_escape_string($conn, $_POST['movie_title']);
-        $movie_description = mysqli_real_escape_string($conn, $_POST['movie_description']);
-        $year = mysqli_real_escape_string($conn, $_POST['run_time']);
-        $category = mysqli_real_escape_string($conn, $_POST['category']);
-        $movie_image = mysqli_real_escape_string($conn, $_FILES['movie_image']['name']);
-        $Movie = mysqli_real_escape_string($conn, $_FILES['Movie']['name']);
-        $rating=mysqli_real_escape_string($conn, $_POST['rating']);
-        $duration=mysqli_real_escape_string($conn, $_POST['duration']);
-        $insertq = "INSERT INTO `videos`(`title`, `description`,`category`, `thumbnail`,`video_file`, `year`, `duration`,`rating`) 
-                    VALUES ('$movie_title', '$movie_description','$category', '$movie_image','$Movie','$year','$duration','$rating')";
-                    mysqli_query($conn, $insertq);
+        $movie_title = mysqli_real_escape_string($pdo, $_POST['movie_title']);
+        $movie_description = mysqli_real_escape_string($pdo, $_POST['movie_description']);
+        $year = mysqli_real_escape_string($pdo, $_POST['run_time']);
+        $category = mysqli_real_escape_string($pdo, $_POST['category']);
+        $movie_image = mysqli_real_escape_string($pdo, $_FILES['movie_image']['name']);
+        $Movie = mysqli_real_escape_string($pdo, $_FILES['Movie']['name']);
+
+        $insertq = "INSERT INTO `movies`(`title`, `description`, `image`,`category`, `year`, `video`) 
+                    VALUES ('$movie_title', '$movie_description', '$movie_image', '$category', '$year', '$Movie')";
+                    mysqli_query($pdo, $insertq);
     }
+    
 }
 ?>
 
@@ -27,12 +31,17 @@ if (isset($_FILES['Movie'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Movie - JioHotstar Admin</title>
+    <title>Upload Movie - Netflix Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css " />
     <style>
 
-       
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         .form-group {
             margin-bottom: 15px;
         }
@@ -40,7 +49,6 @@ if (isset($_FILES['Movie'])) {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color:whitesmoke;
         }
         input[type="text"], textarea, select {
             width: 100%;
@@ -77,18 +85,13 @@ if (isset($_FILES['Movie'])) {
             margin-top: 5px;
         }
         .upper{
-            margin-top: 50px;
-             font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            margin-top: 100px;
         }
     </style>
 </head>
-<body style="background-color: #111;">
-    <?php include 'header.php' ?>
+<body>
 <div class="upper">
-    <h2 style="color:white;">Upload a Movie</h2><br>
+    <h2>Upload a Movie</h2><br>
 
     <?php echo $uploadMessage; ?>
 
@@ -103,7 +106,11 @@ if (isset($_FILES['Movie'])) {
 </div>
 <div class="form-group">
         <label for="title">Category:</label>
-        <input type="text" name="category" placeholder="movie/tvshow/sports" required>
+        <input type="text" name="category" placeholder="Enter category" required>
+</div>
+<div class="form-group">
+        <label for="title">Year:</label>
+        <input type="text" name="run_time" placeholder="Enter year" required>
 </div>
 <div class="form-group">
         <label for="form-group">Poster Image:</label>
@@ -113,20 +120,9 @@ if (isset($_FILES['Movie'])) {
         <label for="form-group">Video File:</label>
         <input type="file" name="Movie" accept="video/*" required>
 </div>
-<div class="form-group">
-        <label for="title">Year:</label>
-        <input type="text" name="run_time" placeholder="Enter year" required>
-</div>
-<div class="form-group">
-        <label for="title">Duration:</label>
-        <input type="text" name="duration" placeholder="Enter duration" required>
-</div>
-<div class="form-group">
-        <label for="title">rating:</label>
-        <input type="text" name="rating" placeholder="Enter rating" required>
-</div>
         <input type="submit" class="submit-btn" value="Upload Movie">
     </form>
 </div>
 </body>
 </html>
+<?php } ?>

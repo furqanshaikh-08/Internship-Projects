@@ -1,54 +1,32 @@
-<?php
-include 'config.php';
-include 'header.php';
-?>
+<?php include 'header.php'; ?>
 
-<main>
-    <section class="hero" style="background-image: url('images/ipl.avif'); ">
-        <div class="hero-content">
-            <h1>Welcome to JioHotstar</h1>
-            <p>Stream your favorite movies, TV shows, and sports</p>
-            <a href="signup.php" class="btn-subscribe">Subscribe Now</a>
+<main class="hero" style="background-image:url(netflixbg.jpg) ; background-size: cover;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Unlimited movies, TV shows, and more.</h1>
+        <p>Watch anywhere. Cancel anytime.</p>
+        <div class="cta">
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            <form action="signup.php" method="get" class="email-form">
+                <input type="email" name="email" placeholder="Email address" required>
+                <button type="submit">Get Started <i class="fas fa-chevron-right"></i></button>
+            </form>
         </div>
-    </section>
-
-    <section class="content-section">
-        <h2>Recommended For You</h2>
-        <div class="content-grid">
-            <?php
-            $query = "SELECT * FROM videos  WHERE category='movie' LIMIT 6";
-            $result = mysqli_query($conn, $query);
-            
-            while($row = mysqli_fetch_assoc($result)) {
-                echo '<div class="content-card">';
-                echo '<a href="watch.php?id='.$row['id'].'">';
-                echo '<img src="images/'.$row['thumbnail'].'" alt="'.$row['title'].'">';
-                echo '<h3>'.$row['title'].'</h3>';
-                echo '</a>';
-                echo '</div>';
-            }
-            ?>
-        </div>
-    </section>
-
-    <section class="content-section">
-        <h2>Popular Series</h2>
-        <div class="content-grid">
-            <?php
-            $query = "SELECT * FROM videos WHERE category='tvshow' LIMIT 6";
-            $result = mysqli_query($conn, $query);
-            
-            while($row = mysqli_fetch_assoc($result)) {
-                echo '<div class="content-card">';
-                echo '<a href="watch.php?id='.$row['id'].'">';
-                echo '<img src="images/'.$row['thumbnail'].'" alt="'.$row['title'].'">';
-                echo '<h3>'.$row['title'].'</h3>';
-                echo '</a>';
-                echo '</div>';
-            }
-            ?>
-        </div>
-    </section>
+    </div>
 </main>
+
+<section class="features" style="background-image:url(netflixindex.jpg) ; background-size: cover;">
+    <div class="feature">
+        <div class="feature-text">
+            <h2>Enjoy on your TV.</h2>
+            <p>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+        </div>
+        <div class="feature-image">
+            <img src="tv.jfif" alt="TV">
+        </div>
+    </div>
+    
+    <!-- More feature sections would go here -->
+</section>
 
 <?php include 'footer.php'; ?>

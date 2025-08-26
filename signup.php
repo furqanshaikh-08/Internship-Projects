@@ -1,59 +1,61 @@
 <?php
+session_start();
 include 'config.php';
-include 'header.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+if(isset($_SESSION['user_id'])) {
+    header("Location: browse.php");
+    exit();
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     
     // Check if email already exists
-    $check_query = "SELECT * FROM users WHERE email='$email'";
-    $check_result = mysqli_query($conn, $check_query);
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->execute([$email]);
     
-    if (mysqli_num_rows($check_result) > 0) {
-        $error = "Email already registered";
+    if($stmt->rowCount() > 0) {
+        $error = "Email already in use";
     } else {
-        $query = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
-        
-        if (mysqli_query($conn, $query)) {
-            $_SESSION['user_id'] = mysqli_insert_id($conn);
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        if($stmt->execute([$name, $email, $password])) {
+            $_SESSION['user_id'] = $pdo->lastInsertId();
             $_SESSION['user_name'] = $name;
-            header('Location: index.php');
+            header("Location: browse.php");
             exit();
         } else {
-            $error = "Registration failed: " . mysqli_error($conn);
+            $error = "Registration failed. Please try again.";
         }
     }
 }
 ?>
 
-<main class="auth-page">
-    <div class="auth-container">
-        <h2>Create Account</h2>
+<?php include 'header.php'; ?>
+<body style="background-image:url(netflixbg.jpg); background-size: cover; ">
+<main class="auth-container">
+    <div class="auth-form">
+        <h1>Sign Up</h1>
         <?php if(isset($error)): ?>
             <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form method="POST">
+        <form action="signup.php" method="post">
             <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" name="name" placeholder="Name" required>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn-subscribe">Sign Up</button>
+            <button type="submit" class="btn">Sign Up</button>
         </form>
-        <div class="auth-footer">
-            <p>Already have an account? <a href="login.php">Login</a></p>
+        <div class="auth-links">
+            <p>Already have an account? <a href="login.php">Sign in now</a>.</p>
         </div>
     </div>
 </main>
-
+</body>
 <?php include 'footer.php'; ?>

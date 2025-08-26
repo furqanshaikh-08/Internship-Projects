@@ -3,34 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JioHotstar Clone</title>
+    <title>Netflix Clone</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
+    <header class="header">
+        <nav class="navbar">
             <div class="logo">
-                <img src="images/logo.webp" alt="JioHotstar">
-            </div>
-            <div class="search-box">
-                <input type="text" placeholder="Search movies, shows, sports">
-                <button><i class="fas fa-search"></i></button>
+                <a href="index.php">
+                    <img src="netflixlogo.jpg" alt="Netflix Clone">
+                </a>
             </div>
             <div class="nav-links">
-                <a href="index.php">Home</a>
-                <a href="#">TV</a>
-                <a href="#">Movies</a>
-                <a href="#">Sports</a>
-                <a href="#">Premium</a>
-                <a href="admin.php">Admin</a>
-            </div>
-            <div class="user-actions">
                 <?php if(isset($_SESSION['user_id'])): ?>
-                    <a href="logout.php" class="btn-login">Logout</a>
+                    <a href="browse.php" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">TV Shows</a>
+                    <a href="#" class="nav-link">Movies</a>
+                    <a href="#" class="nav-link">New & Popular</a>
+                    <a href="admin.php" class="nav-link">Upload</a>
+                    <a href="logout.php" class="nav-link">Sign Out</a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-login">Login</a>
+                    <a href="login.php" class="nav-link">Sign In</a>
                 <?php endif; ?>
-                <a href="signup.php" class="btn-subscribe">Subscribe Now</a>
             </div>
         </nav>
     </header>

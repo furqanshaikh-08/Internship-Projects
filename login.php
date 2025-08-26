@@ -1,52 +1,53 @@
 <?php
+session_start();
 include 'config.php';
-include 'header.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+if(isset($_SESSION['user_id'])) {
+    header("Location: browse.php");
+    exit();
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
     
-    $query = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($conn, $query);
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
     
-    if (mysqli_num_rows($result)) {
-        $user = mysqli_fetch_assoc($result);
-        
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            header('Location: index.php');
-            exit();
-        } else {
-            $error = "Invalid password";
-        }
+    if($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['name'];
+        header("Location: profiles.php");
+        exit();
     } else {
-        $error = "User not found";
+        $error = "Invalid email or password";
     }
 }
 ?>
 
-<main class="auth-page">
-    <div class="auth-container">
-        <h2>Login to JioHotstar</h2>
+<?php include 'header.php'; ?>
+<body style="background-image:url(netflixbg.jpg) ; background-size: cover;">
+<main class="auth-container">
+    <div class="auth-form" >
+        <h1>Sign In</h1>
         <?php if(isset($error)): ?>
             <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form method="POST">
+        <form action="login.php" method="post">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn-login">Login</button>
+            <button type="submit" class="btn">Sign In</button>
         </form>
-        <div class="auth-footer">
-            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+        <div class="auth-links">
+            <p>New to Netflix? <a href="signup.php">Sign up now</a>.</p>
         </div>
     </div>
 </main>
+</body>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

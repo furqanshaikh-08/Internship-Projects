@@ -1,12 +1,13 @@
 <?php
 $host = 'localhost';
+$dbname = 'netflix_clone';
 $username = 'root';
 $password = '';
-$database = 'jiohotstar_clone';
 
-$conn = mysqli_connect($host, $username, $password, $database);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Could not connect to the database: " . $e->getMessage());
 }
 ?>
